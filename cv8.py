@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-image_path = r'C:\Users\Yuvanesh\Pictures\starfish.png'
+image_path = r'C:\Users\Pictures\starfish.png'
 image_gray = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
 if image_gray is None:
@@ -52,3 +52,4 @@ cv2.resizeWindow('3. Corners and Hough Lines (Red)', 800, 600)
 cv2.imshow('3. Corners and Hough Lines (Red)', image_bgr)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
