@@ -1,19 +1,15 @@
 from ultralytics import YOLO
 import cv2
 
-# Load the pre-trained YOLOv8 model
-model = YOLO("yolov8n.pt")  # You can also use "yolov8s.pt" or "yolov8m.pt" for better accuracy
+model = YOLO("yolov8n.pt")  
 
-# Load video file instead of webcam
-video_path = "traffic_video.mp4"  # Change to your video file
+video_path = "traffic_video.mp4"  
 cap = cv2.VideoCapture(video_path)
 
-# Get video properties for saving the output
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 
-# Save output video
 output_path = "output.avi"
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
@@ -23,10 +19,10 @@ while cap.isOpened():
     if not ret:
         break
 
-    results = model(frame)  # Detect objects
-    frame = results[0].plot()  # Draw bounding boxes
+    results = model(frame) 
+    frame = results[0].plot()  
 
-    out.write(frame)  # Save frame to output video
+    out.write(frame) 
     cv2.imshow("Traffic Abnormal Detection", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -37,3 +33,4 @@ out.release()
 cv2.destroyAllWindows()
 
 print("Video processing complete. Output saved as", output_path)
+
