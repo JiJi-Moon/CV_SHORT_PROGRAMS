@@ -2,8 +2,8 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
-model_path = r'C:\Users\Yuvanesh\Desktop\model.h5' 
-img_path = r'C:\Users\Yuvanesh\Pictures\jump_4.jpg' 
+model_path = r'C:\Users\Desktop\model.h5' 
+img_path = r'C:\Users\Pictures\jump_4.jpg' 
 
 action_model = load_model(model_path) 
 action_classes = ['walking', 'running', 'jumping', 'standing', 'sitting', 'falling', 'other'] 
@@ -22,3 +22,4 @@ def predict_action(path, model, classes):
 
 action = predict_action(img_path, action_model, action_classes) 
 print(f"Action: {action}")
+
