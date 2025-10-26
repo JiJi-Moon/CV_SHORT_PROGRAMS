@@ -1,19 +1,17 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-# Read and preprocess
+
 img = cv2.imread("road.jpeg")
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(cv2.GaussianBlur(gray, (5,5), 0), 50, 150)
 
-# ROI mask
 h, w = edges.shape
 mask = np.zeros_like(edges)
 roi = np.array([[(0,h), (0.1*w,0.5*h), (0.9*w,0.5*h), (w,h)]], np.int32)
 cv2.fillPoly(mask, roi, 255)
 edges = cv2.bitwise_and(edges, mask)
 
-# Hough lines
 lines = cv2.HoughLinesP(edges, 1, np.pi/180, 30, minLineLength=50, maxLineGap=30)
 line_img = img.copy()
 if lines is not None:
@@ -23,8 +21,8 @@ if lines is not None:
         if abs(slope)>0.2:
             cv2.line(line_img, (x1,y1), (x2,y2), color, 2)
 
-# Combine and show
 result = cv2.addWeighted(img,0.8,line_img,1,0)
 plt.imshow(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
 plt.axis('off'); plt.show()
 cv2.imwrite('road_with_margins.jpg', result)
+
